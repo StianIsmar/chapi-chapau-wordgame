@@ -1,0 +1,63 @@
+.word-class{
+    display:flex;
+    color:white;
+    flex-direction: row;
+    justify-content: center;
+
+
+}
+
+.Option-box{
+    display:flex;
+    height:100px;
+    font-size: 40px;
+    background-color: #333;
+    flex:row;
+    justify-content: space-evenly;
+    height: 50px;
+    color:white;
+    align-items: center;
+    height:100%;
+}
+.word{
+    padding:10px 10px 38px 34px;
+    height: auto;
+    width: auto;
+    margin:auto;
+    margin-bottom: 8px;
+    width: 60%;
+    font-size:1.4em;
+    border-radius: 3px;
+    box-shadow: 43px 3px 2px #333;
+    opacity: 1;
+}
+@keyframes fadeIn {from {opacity:0;} to {opacity:0.8}}
+@keyframes fadeOut {from {opacity: 0.8;} to {opacity: 0;}}
+
+.fade-in{
+    opacity: 0;
+    animation: fadeIn ease-in 1;
+    animation-fill-mode: forwards;
+    animation-duration: 0.2s;
+}
+
+.wordContent{
+    float:left;
+    padding-right:70px;
+    padding-bottom: 10px;
+    display: block;
+
+}
+
+
+.modal{
+color:black;
+}
+.fa{
+    font-size:4em !important;
+}
+
+
+.add-margin{
+    padding-bottom: 50px;
+}
