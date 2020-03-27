@@ -61,3 +61,15 @@ color:black;
 .add-margin{
     padding-bottom: 50px;
 }
+
+
+
+.green{
+    background-color:green;
+    border-color:green
+}
+
+.red{
+    background-color:red !important;
+    border-color:red !important;
+}

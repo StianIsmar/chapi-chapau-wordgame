@@ -7,14 +7,14 @@ import Modal from "react-bootstrap/Modal";
 class Word extends Component {
   constructor(props) {
     super(props);
+    this.randomWordContent = props.randomWordContent;
     this.wordContent = props.wordContent;
-    this.wordID = props.wordID;
     this.state = { wordFromDb: "alpakka" };
   }
-
-  getWordFromDB = () => {
-    //Get the word from the DB
-    // Set state
+  handleFirstWord = () => {
+    this.setState({
+      firstWordReceived: true
+    });
   };
 
   render() {
@@ -26,14 +26,26 @@ class Word extends Component {
               <Modal.Title>Your word</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Button onclick={this.getWordFromDB}> Get new word</Button>
+              {!this.props.gotWordFromDb ? (
+                <Button onClick={this.props.getRandomWordFromDb}>
+                  {" "}
+                  Get your first word
+                </Button>
+              ) : (
+                <div></div>
+              )}
+
               <p className="fade-in" style={{ color: "black" }}>
-                {this.wordContent}
+                {this.props.randomWordContent}
               </p>
             </Modal.Body>
             <Modal.Footer>
-              <i className="fa fa-check-square"></i>
-              <i className="fa fa-times"></i>{" "}
+              <Button onClick={this.props.completedWord}>
+                <i className="fa fa-check-square green"></i>
+              </Button>
+              <Button variant="danger" onClick={this.props.getRandomWordFromDb}>
+                <i className="fa fa-times red"></i>{" "}
+              </Button>
             </Modal.Footer>
           </Modal.Dialog>
         </div>
