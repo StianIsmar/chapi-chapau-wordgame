@@ -39,7 +39,14 @@ class Word extends Component {
                 {this.props.randomWordContent}
               </p>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className="footer">
+              <div className="score">
+                {this.props.roundScore > 0 ? (
+                  <div>Current round score: {this.props.roundScore}</div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
               <Button onClick={this.props.completedWord}>
                 <i className="fa fa-check-square green"></i>
               </Button>

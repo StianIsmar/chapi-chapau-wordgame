@@ -73,3 +73,13 @@ color:black;
     background-color:red !important;
     border-color:red !important;
 }
+.footer{
+    position: relative;
+}
+
+.score{
+    position: absolute;
+    left:40px;
+    font-size: 18px;
+    font-weight: 1000;
+}

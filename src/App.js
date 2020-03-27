@@ -13,34 +13,43 @@ class App extends Component {
       firebase.initializeApp(DB_CONFIG);
     }
 
-    this.db = firebase
+    this.dbMain = firebase
       .database()
       .ref()
       .child("words");
 
+    this.dbDynamic = firebase
+      .database()
+      .ref()
+      .child("dynamicDb");
+
     this.state = {
-      words: [],
+      words: [{ id: 1, wordContent: "word45" }],
       completedWords: [
         { id: 1, wordContent: "word45" },
         { id: 2, wordContent: "word44" },
         { id: 4, wordContent: "word42" }
       ],
       randomWord: { id: 3, wordContent: "" },
-      gotWordFromDb: false
+      gotWordFromDb: false,
+      roundScore: 0
     };
   }
 
   // before component mounts
   componentWillMount() {
     const previousWords = this.state.words;
-    this.db.on("child_added", snap => {
+    this.dbMain.on("child_added", snap => {
       previousWords.push({
         id: snap.key,
         wordContent: snap.val().wordContent
       });
-      this.setState({
-        words: previousWords
-      });
+      this.setState(
+        {
+          words: previousWords
+        },
+        console.log(this.state.words)
+      );
     });
 
     // Hvis noe skal lagres
@@ -48,16 +57,25 @@ class App extends Component {
   }
   addword = word => {
     console.log(typeof word);
-    this.db.push().set({ wordContent: word });
+    this.dbMain.push().set({ wordContent: word });
+    this.dbDynamic.push().set({ wordContent: word });
   };
 
   completedWord = word => {
     const prevWords = this.state.completedWords;
     prevWords.push({ id: prevWords.length + 1, wordContent: word });
-    this.setState({ completedWords: prevWords });
+
+    this.setState({
+      completedWords: prevWords,
+      roundScore: this.roundScore + 1
+    });
     // Remove word from db2!
     // .... Implement//
     return this.getRandomWordFromDb();
+  };
+
+  removeWord = wordId => {
+    this.dbDynamic.child(wordId).remove();
   };
 
   getRandomWordFromDb = () => {
@@ -101,6 +119,7 @@ class App extends Component {
               getRandomWordFromDb={this.getRandomWordFromDb}
               gotWordFromDb={this.state.gotWordFromDb}
               key={1}
+              roundScore={this.state.roundScore}
             />
             );
           </div>
