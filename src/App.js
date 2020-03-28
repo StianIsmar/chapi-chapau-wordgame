@@ -24,12 +24,8 @@ class App extends Component {
       .child("dynamicDb");
 
     this.state = {
-      words: [{ id: 1, wordContent: "word45" }],
-      completedWords: [
-        { id: 1, wordContent: "word45" },
-        { id: 2, wordContent: "word44" },
-        { id: 4, wordContent: "word42" }
-      ],
+      words: [],
+      completedWords: [],
       randomWord: { id: 3, wordContent: "" },
       gotWordFromDb: false,
       roundScore: 0
@@ -38,8 +34,11 @@ class App extends Component {
 
   // before component mounts
   componentWillMount() {
-    const previousWords = this.state.words;
-    this.dbMain.on("child_added", snap => {
+    /* When the components is loaded, all the existing words in db2 are loaded into
+    the words array 
+   */
+    const previousWords = [];
+    this.dbDynamic.on("child_added", snap => {
       previousWords.push({
         id: snap.key,
         wordContent: snap.val().wordContent
@@ -55,13 +54,26 @@ class App extends Component {
     // Hvis noe skal lagres
     // this.db.push().set({ wordContent: "tiger" });
   }
+
+  updateWordList = async () => {
+    const previousWords = [];
+    this.dbDynamic.on("child_added", snap => {
+      previousWords.push({
+        id: snap.key,
+        wordContent: snap.val().wordContent
+      });
+    });
+    return previousWords;
+  };
+
   addword = word => {
-    console.log(typeof word);
+    // push the new word to both the dbs:
     this.dbMain.push().set({ wordContent: word });
     this.dbDynamic.push().set({ wordContent: word });
   };
 
   completedWord = word => {
+    // if the user gets a point for the word, it is appended to completedWords array:
     const prevWords = this.state.completedWords;
     prevWords.push({ id: prevWords.length + 1, wordContent: word });
 
@@ -78,11 +90,20 @@ class App extends Component {
     this.dbDynamic.child(wordId).remove();
   };
 
-  getRandomWordFromDb = () => {
-    // Get word from DB
+  getRandomWordFromDb = async () => {
+    // Get word from DB, need to call db to get updated version
 
-    // This is the new word from the db!
-    const newWord = { id: 5, wordContent: "new_word_from_db" };
+    /* 
+    Await is used to pause the execution until updateWordList returns the updated list 
+    from firebase.
+    */
+    const updatedWordList = await this.updateWordList(); // {id:x,wordContent:"the_word"}
+
+    // select a word randomly from the list:
+    const newWord =
+      updatedWordList[Math.floor(Math.random() * updatedWordList.length)];
+    console.log("This is the selected new word:");
+    console.log(newWord);
     this.setState(
       {
         randomWord: {

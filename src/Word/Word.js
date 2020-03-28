@@ -34,7 +34,6 @@ class Word extends Component {
               ) : (
                 <div></div>
               )}
-
               <p className="fade-in" style={{ color: "black" }}>
                 {this.props.randomWordContent}
               </p>
@@ -47,10 +46,13 @@ class Word extends Component {
                   <div></div>
                 )}
               </div>
-              <Button onClick={this.props.completedWord}>
+              <Button className="green-btn" onClick={this.props.completedWord}>
                 <i className="fa fa-check-square green"></i>
               </Button>
-              <Button variant="danger" onClick={this.props.getRandomWordFromDb}>
+              <Button
+                className="red-btn"
+                onClick={this.props.getRandomWordFromDb}
+              >
                 <i className="fa fa-times red"></i>{" "}
               </Button>
             </Modal.Footer>

@@ -54,7 +54,7 @@
 color:black;
 }
 .fa{
-    font-size:4em !important;
+    font-size:3em !important;
 }
 
 
@@ -65,13 +65,13 @@ color:black;
 
 
 .green{
-    background-color:green;
-    border-color:green
+    background-color:green !important;
+    border-color:green !important;
 }
 
 .red{
-    background-color:red !important;
-    border-color:red !important;
+    background-color:#FF0000 !important;
+    border-color: #FF0000 !important;
 }
 .footer{
     position: relative;
@@ -82,4 +82,11 @@ color:black;
     left:40px;
     font-size: 18px;
     font-weight: 1000;
+}
+.btn-primary.green-btn{
+    background-color: green !important;
+}
+.btn-primary.red-btn,.red,.fa-times:before{
+    background-color:red !important;
+    background: red !important;
 }
