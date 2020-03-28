@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono&display=swap');
 html, body, #root, #root>div {
   height: 100%;
   background-color: #282c34;
@@ -10,21 +10,27 @@ html, body, #root, #root>div {
   background-color: #282c34;
   font-family: 'Roboto', sans-serif;
   height: 100%;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
 }
 
 .App-header {
   min-height: 110px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-bottom:15px;
   
 }
 
 h1{
   font-size: 3em;
+  margin-top:none
 }
 .Add-word{
   display: flex;
@@ -35,6 +41,39 @@ h1{
   font-size: calc(10px + 2vmin);
 }
 
+.add-word-and-status{
+  width: 100%;
+  display:flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  --max-width: 100%;
+  --align-items: stretch;
+  --flex-wrap:wrap;
+}
+
+.add-word-and-status > * {
+  padding: 15px;
+  flex:1 100%
+  
+}
+
+div .wordPool{
+  text-align: center;
+  color:white;
+  font-family: 'Roboto Mono', monospace;
+
+}
+div .wordform{
+  text-align: center;
+  flex:1 100%;
+  
+}
+div .number{
+  text-align: center;
+  flex:1 100%;
+  font-size:24px;
+  
+}
 
 
 

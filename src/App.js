@@ -133,7 +133,13 @@ class App extends Component {
           <header className="App-header">
             <h1>chapi-chapau</h1>
           </header>
-          <WordForm addword={this.addword} />
+          <div className="add-word-and-status">
+            <div className="wordPool">
+              <div className="number">{this.state.words.length}</div>
+              Is the number of words in word pool
+            </div>
+            <WordForm className="wordform" addword={this.addword} />
+          </div>
           <div>
             <Word
               randomWordContent={this.state.randomWord.wordContent}
