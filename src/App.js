@@ -72,17 +72,21 @@ class App extends Component {
     this.dbDynamic.push().set({ wordContent: word });
   };
 
-  completedWord = word => {
+  completedWord = () => {
     // if the user gets a point for the word, it is appended to completedWords array:
+    // need to check if the words is gotten from the databse.. gotFromDb?
+    console.log("This is the current word....");
+    console.log(this.state.randomWord);
     const prevWords = this.state.completedWords;
-    prevWords.push({ id: prevWords.length + 1, wordContent: word });
+    prevWords.push(this.state.randomWord);
 
     this.setState({
       completedWords: prevWords,
       roundScore: this.roundScore + 1
     });
     // Remove word from db2!
-    // .... Implement//
+    this.removeWord(this.state.randomWord.id);
+    console.log("removed word");
     return this.getRandomWordFromDb();
   };
 
@@ -110,6 +114,7 @@ class App extends Component {
           id: newWord.id,
           wordContent: newWord.wordContent
         },
+        words: updatedWordList,
         gotWordFromDb: true
       },
       () => {
@@ -147,6 +152,7 @@ class App extends Component {
               gotWordFromDb={this.state.gotWordFromDb}
               key={1}
               roundScore={this.state.roundScore}
+              completedWord={this.completedWord}
             />
             );
           </div>
