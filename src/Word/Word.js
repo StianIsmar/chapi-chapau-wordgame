@@ -21,42 +21,45 @@ class Word extends Component {
     return (
       <div>
         <div className="add-margin">
-          <Modal.Dialog>
-            <Modal.Header closeButton>
-              <Modal.Title>Your word</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {!this.props.gotWordFromDb ? (
-                <Button onClick={this.props.getRandomWordFromDb}>
-                  {" "}
-                  Get your first word
+          {!this.props.gotWordFromDb ? (
+            <button>
+              <a className="brk-btn" onClick={this.props.getRandomWordFromDb}>
+                Get your first word
+              </a>
+            </button>
+          ) : (
+            <Modal.Dialog>
+              <Modal.Header closeButton>
+                <Modal.Title>Your word</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p className="fade-in" style={{ color: "black" }}>
+                  {this.props.randomWordContent}
+                </p>
+              </Modal.Body>
+              <Modal.Footer className="footer">
+                <div className="score">
+                  {this.props.roundScore > 0 ? (
+                    <div>Current round score: {this.props.roundScore}</div>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+                <Button
+                  className="green-btn"
+                  onClick={this.props.completedWord}
+                >
+                  <i className="fa fa-check-square green"></i>
                 </Button>
-              ) : (
-                <div></div>
-              )}
-              <p className="fade-in" style={{ color: "black" }}>
-                {this.props.randomWordContent}
-              </p>
-            </Modal.Body>
-            <Modal.Footer className="footer">
-              <div className="score">
-                {this.props.roundScore > 0 ? (
-                  <div>Current round score: {this.props.roundScore}</div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
-              <Button className="green-btn" onClick={this.props.completedWord}>
-                <i className="fa fa-check-square green"></i>
-              </Button>
-              <Button
-                className="red-btn"
-                onClick={this.props.getRandomWordFromDb}
-              >
-                <i className="fa fa-times red"></i>{" "}
-              </Button>
-            </Modal.Footer>
-          </Modal.Dialog>
+                <Button
+                  className="red-btn"
+                  onClick={this.props.getRandomWordFromDb}
+                >
+                  <i className="fa fa-times red"></i>{" "}
+                </Button>
+              </Modal.Footer>
+            </Modal.Dialog>
+          )}
         </div>
       </div>
     );
