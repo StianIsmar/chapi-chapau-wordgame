@@ -13,7 +13,7 @@ class App extends Component {
     if (!firebase.apps.length) {
       firebase.initializeApp(DB_CONFIG);
     }
-    firebase.database.enableLogging(true);
+    firebase.database.enableLogging(false);
 
     this.dbMain = firebase
       .database()
@@ -31,12 +31,13 @@ class App extends Component {
       randomWord: { id: 3, wordContent: "" },
       gotWordFromDb: false,
       roundScore: 0,
-      moreWordsExist: true
+      moreWordsExist: true,
+      mounted: false
     };
   }
-
   // before component mounts
-  componentWillMount() {
+  // This function is called on and on...
+  componentDidMount() {
     /* When the components is loaded, all the existing words in db2 are loaded into
     the words array 
    */
@@ -47,16 +48,12 @@ class App extends Component {
         id: snap.key,
         wordContent: snap.val().wordContent
       });
-      this.setState(
-        {
-          words: previousWords
-        },
-        console.log(this.state.words)
-      );
-    });
 
-    // Hvis noe skal lagres
-    // this.db.push().set({ wordContent: "tiger" });
+      this.setState({
+        words: previousWords,
+        mounted: true
+      });
+    });
   }
 
   updateWordList = async () => {
@@ -130,7 +127,9 @@ class App extends Component {
       this.setState({ moreWordsExist: false });
     } else {
       const updatedWordList = await this.updateWordList(); // {id:x,wordContent:"the_word"}
-      console.log("The new list where we are selecting a random element...");
+      console.log(
+        "The new list where we are selecting a random element from..."
+      );
       console.log(updatedWordList);
 
       // select a word randomly from the list:
@@ -156,10 +155,12 @@ class App extends Component {
 
   startNewRound = () => {
     // empty completed words
-    this.setState({ completedWords: [], noMoreWords: false });
-    this.copyFbRecord(this.dbMain);
-
-    // backend: put all words back in db2.
+    this.setState(
+      { words: [], gotWordFromDb: false, noMoreWords: false },
+      () => {
+        this.copyFbRecord(this.dbMain);
+      }
+    );
   };
 
   copyFbRecord = oldRef => {
@@ -169,7 +170,7 @@ class App extends Component {
       .child("dynamicDb");
     console.log("newRef", newRef);
     console.log("oldRef", oldRef);
-
+    this.setState({ completedWords: [], moreWordsExist: true });
     const promise = new Promise((resolve, reject) => {
       oldRef
         .once("value")
@@ -219,7 +220,6 @@ class App extends Component {
               roundScore={this.state.roundScore}
               completedWord={this.completedWord}
             />
-            );
           </div>
           <Button
             variant="secondary"
