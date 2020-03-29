@@ -1,0 +1,32 @@
+/*The navbar*/
+
+h1.mh-logo{
+  max-width: 100%;
+  height: auto;
+  color:white !important;
+
+}
+.container {
+	width: 960px;
+	max-width: 100%;
+	padding: 20px;
+	margin: 0 auto;
+}
+/*Flex-wrap breaks it into two lines on small screens*/
+.main-header .container {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.main-nav ul {
+	margin: 1em 0 .5em;
+	text-align: center;
+}
+.main-nav li {
+	display: inline;
+}
+.main-nav a {
+	display: inline-block;
+	padding: .5em 1.5em;
+}

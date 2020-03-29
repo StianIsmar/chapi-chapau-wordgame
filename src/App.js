@@ -5,6 +5,7 @@ import "./App.css";
 import WordForm from "./WordForm/WordForm";
 import { DB_CONFIG } from "./Config/config";
 import firebase from "firebase/app";
+import Navbar from "./Navbar/Navbar";
 
 class App extends Component {
   constructor(props) {
@@ -126,8 +127,26 @@ class App extends Component {
   startNewRound = () => {
     // empty completed words
     this.setState({ completedWords: [] });
+    this.copyFbRecord(this.dbMain, this.dbDynamic);
 
     // backend: put all words back in db2.
+  };
+  copyFbRecord = (oldRef, newRef) => {
+    return Promise((resolve, reject) => {
+      oldRef
+        .once("value")
+        .then(snap => {
+          return newRef.set(snap.val());
+        })
+        .then(() => {
+          console.log("Done!");
+          resolve();
+        })
+        .catch(err => {
+          console.log(err.message);
+          reject();
+        });
+    });
   };
 
   render() {
@@ -135,9 +154,8 @@ class App extends Component {
       <div>
         {" "}
         <div className="App">
-          <header className="App-header">
-            <h1>chapi-chapau</h1>
-          </header>
+          <Navbar />
+
           <div className="add-word-and-status">
             <div className="wordPool">
               <div className="number">{this.state.words.length}</div>
