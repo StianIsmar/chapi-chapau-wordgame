@@ -13,7 +13,7 @@ class App extends Component {
     if (!firebase.apps.length) {
       firebase.initializeApp(DB_CONFIG);
     }
-    firebase.database.enableLogging(false);
+    firebase.database.enableLogging(true);
 
     this.dbMain = firebase
       .database()
@@ -40,6 +40,7 @@ class App extends Component {
     /* When the components is loaded, all the existing words in db2 are loaded into
     the words array 
    */
+    console.log("componentWillMount called");
     const previousWords = [];
     this.dbDynamic.on("child_added", snap => {
       previousWords.push({
@@ -70,10 +71,19 @@ class App extends Component {
   };
 
   addword = word => {
+    console.log(typeof word);
     // push the new word to both the dbs:
     // same as writing firebase.databse().ref().child('dbMain').push().set({wordContent:word})
-    this.dbMain.push().set({ wordContent: word });
-    this.dbDynamic.push().set({ wordContent: word });
+    try {
+      this.dbMain.push().set({ wordContent: word });
+    } catch (e) {
+      console.log("Make sure words is filled in");
+    }
+    try {
+      this.dbDynamic.push().set({ wordContent: word });
+    } catch (e) {
+      console.log("Make sure word is filled in");
+    }
   };
 
   completedWord = () => {
