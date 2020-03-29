@@ -13,6 +13,7 @@ class App extends Component {
     if (!firebase.apps.length) {
       firebase.initializeApp(DB_CONFIG);
     }
+    firebase.database.enableLogging(false);
 
     this.dbMain = firebase
       .database()
@@ -29,7 +30,8 @@ class App extends Component {
       completedWords: [],
       randomWord: { id: 3, wordContent: "" },
       gotWordFromDb: false,
-      roundScore: 0
+      roundScore: 0,
+      moreWordsExist: true
     };
   }
 
@@ -69,6 +71,7 @@ class App extends Component {
 
   addword = word => {
     // push the new word to both the dbs:
+    // same as writing firebase.databse().ref().child('dbMain').push().set({wordContent:word})
     this.dbMain.push().set({ wordContent: word });
     this.dbDynamic.push().set({ wordContent: word });
   };
@@ -95,44 +98,69 @@ class App extends Component {
     this.dbDynamic.child(wordId).remove();
   };
 
-  getRandomWordFromDb = async () => {
-    // Get word from DB, need to call db to get updated version
+  checkIfEmptyDb = async => {
+    var ref = firebase.database().ref("dynamicDb");
+    // Return value of the promise
+    return ref.once("value").then(snapshot => {
+      const a = snapshot.exists();
+      return a;
+    });
+  };
 
+  getRandomWordFromDb = async () => {
+    // First, check if there are any more words to guess:
+    let moreWords = await this.checkIfEmptyDb();
+    console.log("moreWords", moreWords); //undefined
     /* 
     Await is used to pause the execution until updateWordList returns the updated list 
     from firebase.
     */
-    const updatedWordList = await this.updateWordList(); // {id:x,wordContent:"the_word"}
+    if (!moreWords) {
+      console.log("No more words exist!");
+      this.setState({ moreWordsExist: false });
+    } else {
+      const updatedWordList = await this.updateWordList(); // {id:x,wordContent:"the_word"}
+      console.log("The new list where we are selecting a random element...");
+      console.log(updatedWordList);
 
-    // select a word randomly from the list:
-    const newWord =
-      updatedWordList[Math.floor(Math.random() * updatedWordList.length)];
-    console.log("This is the selected new word:");
-    console.log(newWord);
-    this.setState(
-      {
-        randomWord: {
-          id: newWord.id,
-          wordContent: newWord.wordContent
+      // select a word randomly from the list:
+      const newWord =
+        updatedWordList[Math.floor(Math.random() * updatedWordList.length)];
+      console.log("This is the selected new word:");
+      console.log(newWord);
+      this.setState(
+        {
+          randomWord: {
+            id: newWord.id,
+            wordContent: newWord.wordContent
+          },
+          words: updatedWordList,
+          gotWordFromDb: true
         },
-        words: updatedWordList,
-        gotWordFromDb: true
-      },
-      () => {
-        console.log(this.state.gotWordFromDb);
-      }
-    );
+        () => {
+          console.log("got word from db", this.state.gotWordFromDb);
+        }
+      );
+    }
   };
 
   startNewRound = () => {
     // empty completed words
-    this.setState({ completedWords: [] });
-    this.copyFbRecord(this.dbMain, this.dbDynamic);
+    this.setState({ completedWords: [], noMoreWords: false });
+    this.copyFbRecord(this.dbMain);
 
     // backend: put all words back in db2.
   };
-  copyFbRecord = (oldRef, newRef) => {
-    return Promise((resolve, reject) => {
+
+  copyFbRecord = oldRef => {
+    const newRef = firebase
+      .database()
+      .ref()
+      .child("dynamicDb");
+    console.log("newRef", newRef);
+    console.log("oldRef", oldRef);
+
+    const promise = new Promise((resolve, reject) => {
       oldRef
         .once("value")
         .then(snap => {
@@ -164,6 +192,15 @@ class App extends Component {
             <WordForm className="wordform" addword={this.addword} />
           </div>
           <div>
+            {!this.state.moreWordsExist ? (
+              <div>
+                <div className="alert alert-dark" role="alert">
+                  No more words exist! Click the "Start New Round button"
+                </div>
+              </div>
+            ) : (
+              <div>there are more!</div>
+            )}
             <Word
               randomWordContent={this.state.randomWord.wordContent}
               getRandomWordFromDb={this.getRandomWordFromDb}
