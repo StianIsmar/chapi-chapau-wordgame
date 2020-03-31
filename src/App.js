@@ -210,7 +210,7 @@ class App extends Component {
                 </div>
               </div>
             ) : (
-              <div>there are more!</div>
+              <div>more</div>
             )}
             <Word
               randomWordContent={this.state.randomWord.wordContent}
