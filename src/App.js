@@ -92,10 +92,15 @@ class App extends Component {
     const prevWords = this.state.completedWords;
     prevWords.push(this.state.randomWord);
 
-    this.setState({
-      completedWords: prevWords,
-      roundScore: this.roundScore + 1
-    });
+    this.setState(
+      {
+        completedWords: prevWords,
+        roundScore: this.state.roundScore + 1
+      },
+      () => {
+        console.log("ROUNDSCORE UPDATED", this.state.roundScore);
+      }
+    );
     // Remove word from db2!
     this.removeWord(this.state.randomWord.id);
     console.log("removed word");
@@ -181,7 +186,7 @@ class App extends Component {
         .then(() => {
           this.updateWordList().then(res => {
             console.log("THIS IS RES IN THEN", res);
-            this.setState({ words: res });
+            this.setState({ words: res, roundScore: 0 });
           });
           console.log("Done!");
           resolve();
@@ -218,7 +223,7 @@ class App extends Component {
                 <div className="col"></div>
               </div>
             ) : (
-              <div>more</div>
+              <div></div>
             )}
             <Word
               randomWordContent={this.state.randomWord.wordContent}
@@ -242,5 +247,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

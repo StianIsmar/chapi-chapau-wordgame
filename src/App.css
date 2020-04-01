@@ -84,8 +84,11 @@ div .number{
   text-align: center;
   flex:1 100%;
   font-size:24px;
-  
+  font-weight: 1200;
+
 }
+  
+
 div.container{
   background-color:black;
   width: 100%;
@@ -117,6 +120,9 @@ color:white !important;
 .larger-text{
   font-family: 'Fredoka One', cursive;
   font-size: 1.1em;
+}
+.wordPool{
+ font-family: 'Fredoka One', cursive;
 }
 
 

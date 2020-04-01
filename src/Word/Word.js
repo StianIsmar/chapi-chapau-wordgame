@@ -23,7 +23,10 @@ class Word extends Component {
         <div className="add-margin">
           {!this.props.gotWordFromDb ? (
             <Button className="brk-btn" variant="primary" size="xxl">
-              <a onClick={this.props.getRandomWordFromDb}>
+              <a
+                className="first-word"
+                onClick={this.props.getRandomWordFromDb}
+              >
                 Get your first word
               </a>
             </Button>
@@ -33,7 +36,7 @@ class Word extends Component {
                 <Modal.Title>Your word</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <p className="fade-in" style={{ color: "black" }}>
+                <p className="fade-in word-content">
                   {this.props.randomWordContent}
                 </p>
               </Modal.Body>

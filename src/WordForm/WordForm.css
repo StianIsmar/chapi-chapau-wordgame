@@ -13,3 +13,7 @@
         --padding: 3px;
         max-width: 50%;
         }
+.btn:active{
+border-color: green !important;
+
+}

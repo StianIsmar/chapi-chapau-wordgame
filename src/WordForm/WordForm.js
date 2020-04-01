@@ -8,15 +8,28 @@ import "firebase/database";
 class WordForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { newWordContent: "" };
+    this.state = { newWordContent: "", submitted: false };
   }
   // Set new wordcontent of what the value is in the inout box. Do not need to bind with arrow func.
   handleUserInput = e => {
     this.setState({ newWordContent: e.target.value });
   };
   writeWord = () => {
+    this.temporaryChangeState();
     this.props.addword(this.state.newWordContent);
     this.setState({ newWordContent: "" });
+  };
+
+  temporaryChangeState = () => {
+    if (this.state.submitted === false) {
+      this.setState({ submitted: !this.state.submitted });
+      setTimeout(
+        function() {
+          this.setState({ submitted: false });
+        }.bind(this),
+        500
+      ); // wait 5 seconds, then reset to false
+    }
   };
   render() {
     return (
@@ -30,8 +43,17 @@ class WordForm extends Component {
             />
 
             <InputGroup.Append>
-              <Button variant="outline-secondary" onClick={this.writeWord}>
-                Button
+              {}
+              <Button variant="outline-secondary btn" onClick={this.writeWord}>
+                {this.state.submitted ? (
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                ) : (
+                  <div>Submit</div>
+                )}
               </Button>
             </InputGroup.Append>
           </InputGroup>
