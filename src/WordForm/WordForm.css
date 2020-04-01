@@ -15,5 +15,9 @@
         }
 .btn:active{
 border-color: green !important;
+}
+
+input.form-control{
+    height: 45px;
 
 }

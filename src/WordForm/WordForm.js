@@ -31,12 +31,19 @@ class WordForm extends Component {
       ); // wait 5 seconds, then reset to false
     }
   };
+
+  handleKeyPress = event => {
+    if (event.key === "Enter") {
+      this.writeWord();
+    }
+  };
   render() {
     return (
       <div className="word-wrapper">
         <div className="input-word">
           <InputGroup className="mb-3">
             <FormControl
+              onKeyDown={e => this.handleKeyPress(e)}
               placeholder="Add new word.."
               value={this.state.newWordContent}
               onChange={this.handleUserInput}
@@ -47,7 +54,7 @@ class WordForm extends Component {
               <Button variant="outline-secondary btn" onClick={this.writeWord}>
                 {this.state.submitted ? (
                   <span
-                    class="spinner-border spinner-border-sm"
+                    className="spinner-border spinner-border-sm"
                     role="status"
                     aria-hidden="true"
                   ></span>

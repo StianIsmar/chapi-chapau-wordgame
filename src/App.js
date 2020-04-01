@@ -218,7 +218,7 @@ class App extends Component {
                 <div className="col"></div>
                 <div className="alert alert-dark col" role="alert">
                   <div className="larger-text">No more words</div>
-                  Click the "Start New Round button"
+                  <div className="smaller-text">Start new round</div>
                 </div>
                 <div className="col"></div>
               </div>
@@ -232,6 +232,7 @@ class App extends Component {
               key={1}
               roundScore={this.state.roundScore}
               completedWord={this.completedWord}
+              noMoreWords={!this.state.moreWordsExist}
             />
           </div>
           <Button

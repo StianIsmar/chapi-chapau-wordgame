@@ -120,6 +120,10 @@ color:white !important;
 .larger-text{
   font-family: 'Fredoka One', cursive;
   font-size: 1.1em;
+  color:#2A7FB1;
+}
+.smaller-text{
+  color:#2A7FB1;
 }
 .wordPool{
  font-family: 'Fredoka One', cursive;
