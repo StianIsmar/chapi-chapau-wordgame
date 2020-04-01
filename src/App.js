@@ -41,7 +41,7 @@ class App extends Component {
     /* When the components is loaded, all the existing words in db2 are loaded into
     the words array 
    */
-    console.log("componentWillMount called");
+    console.log("componentWillMount called!!!!");
     const previousWords = [];
     this.dbDynamic.on("child_added", snap => {
       previousWords.push({
@@ -57,6 +57,7 @@ class App extends Component {
   }
 
   updateWordList = async () => {
+    console.log("Calling updatewordlist!");
     const previousWords = [];
     this.dbDynamic.on("child_added", snap => {
       previousWords.push({
@@ -178,6 +179,10 @@ class App extends Component {
           return newRef.set(snap.val());
         })
         .then(() => {
+          this.updateWordList().then(res => {
+            console.log("THIS IS RES IN THEN", res);
+            this.setState({ words: res });
+          });
           console.log("Done!");
           resolve();
         })
@@ -204,10 +209,13 @@ class App extends Component {
           </div>
           <div>
             {!this.state.moreWordsExist ? (
-              <div>
-                <div className="alert alert-dark" role="alert">
-                  No more words exist! Click the "Start New Round button"
+              <div className="alert-container">
+                <div className="col"></div>
+                <div className="alert alert-dark col" role="alert">
+                  <div className="larger-text">No more words</div>
+                  Click the "Start New Round button"
                 </div>
+                <div className="col"></div>
               </div>
             ) : (
               <div>more</div>

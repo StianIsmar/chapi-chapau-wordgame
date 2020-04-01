@@ -90,7 +90,33 @@ div.container{
   background-color:black;
   width: 100%;
   opacity: 80%;
+}
 
+.alert-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.alert-dark{
+color:white !important;  
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 0;
+}
+.larger-text{
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1em;
 }
 
 

@@ -1,0 +1,21 @@
+[debug] [2020-03-31T16:46:35.617Z] ----------------------------------------------------------------------
+[debug] [2020-03-31T16:46:35.620Z] Command:       /usr/local/bin/node /usr/local/bin/firebase hosting:disable
+[debug] [2020-03-31T16:46:35.620Z] CLI Version:   7.16.1
+[debug] [2020-03-31T16:46:35.620Z] Platform:      darwin
+[debug] [2020-03-31T16:46:35.620Z] Node Version:  v12.16.1
+[debug] [2020-03-31T16:46:35.626Z] Time:          Tue Mar 31 2020 18:46:35 GMT+0200 (Central European Summer Time)
+[debug] [2020-03-31T16:46:35.627Z] ----------------------------------------------------------------------
+[debug] [2020-03-31T16:46:35.627Z] 
+[debug] [2020-03-31T16:46:35.643Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-31T16:46:35.643Z] > authorizing via signed-in user
+[debug] [2020-03-31T16:46:35.644Z] [iam] checking project chapi-chapau for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-03-31T16:46:35.645Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-03-31T16:46:35.646Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-03-31T16:46:35.910Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-31T16:46:35.945Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/chapi-chapau:testIamPermissions  
+
+[debug] [2020-03-31T16:46:37.303Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-31T16:46:37.305Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/chapi-chapau  
+ 
+[debug] [2020-03-31T16:46:37.712Z] <<< HTTP RESPONSE 200
