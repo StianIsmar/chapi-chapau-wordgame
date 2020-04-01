@@ -100,43 +100,21 @@ color:black;
         width: 250px;
     }
 }
-.brk-btn {
-    position: relative;
-    background: none;
-    color: #5991BC !important;
-    text-decoration: none;
-    border: 0.2em solid #5991BC;
-    padding: 0.5em 1em;
+
+.btn-primary {
+    background-color:#E5E2A6 !important;
+    border-color: #E5E2A6 !important;
+    color:#2A7FB1 !important;
+  }
+
+.btn-xxl {
+    padding: 1rem 1.5rem !important;
+    font-size: 1.1rem !important;
 }
-.brk-btn::before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 10%;
-    background: #222;
-    height: 0.3em;
-    right: 20%;
-    top: -0.21em;
-    transform: skewX(-45deg);
-    -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
-    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+button a{
+    color:#2A7FB1 !important;
 }
-.brk-btn::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 10%;
-    background: #222;
-    height: 0.3em;
-    left: 20%;
-    bottom: -0.25em;
-    transform: skewX(45deg);
-    -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
-    transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+button.brk-btn:hover{
+    background-color: #D3D29B !important;
 }
-.brk-btn:hover::before {
-    right: 80%;
-}
-.brk-btn:hover::after {
-    left: 80%;
-}
+
