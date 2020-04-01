@@ -32,13 +32,13 @@ class Word extends Component {
                 className="first-word"
                 onClick={this.props.getRandomWordFromDb}
               >
-                Get your first word
+                Click when your turn
               </a>
             </Button>
           ) : (
             <Modal.Dialog>
-              <Modal.Header closeButton>
-                <Modal.Title>Your word</Modal.Title>
+              <Modal.Header>
+                <Modal.Title className="modal-title">Your word</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <p className="fade-in word-content">

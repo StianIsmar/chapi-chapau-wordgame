@@ -7,17 +7,19 @@
      }
 
 
-    .input-word {
-        --display: inline-block; 
-        --margin: 0 auto;
-        --padding: 3px;
-        max-width: 50%;
-        }
+.input-word {
+    --display: inline-block; 
+    --margin: 0 auto;
+    --padding: 3px;
+    max-width: 50%;
+    }
 .btn:active{
 border-color: green !important;
 }
 
 input.form-control{
     height: 45px;
-
+}
+i.fa{
+    font-size:1.2em !important;
 }

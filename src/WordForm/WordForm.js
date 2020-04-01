@@ -43,6 +43,7 @@ class WordForm extends Component {
         <div className="input-word">
           <InputGroup className="mb-3">
             <FormControl
+              className={"input-text"}
               onKeyDown={e => this.handleKeyPress(e)}
               placeholder="Add new word.."
               value={this.state.newWordContent}
@@ -51,7 +52,7 @@ class WordForm extends Component {
 
             <InputGroup.Append>
               {}
-              <Button variant="outline-secondary btn" onClick={this.writeWord}>
+              <Button variant="secondary btn" onClick={this.writeWord}>
                 {this.state.submitted ? (
                   <span
                     className="spinner-border spinner-border-sm"
@@ -59,7 +60,9 @@ class WordForm extends Component {
                     aria-hidden="true"
                   ></span>
                 ) : (
-                  <div>Submit</div>
+                  <div>
+                    <i className="fa fa-plus"></i>
+                  </div>
                 )}
               </Button>
             </InputGroup.Append>

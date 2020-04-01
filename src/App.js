@@ -235,14 +235,17 @@ class App extends Component {
               noMoreWords={!this.state.moreWordsExist}
             />
           </div>
-          <Button
-            variant="secondary"
-            size="lg"
-            block
-            onClick={this.startNewRound}
-          >
-            Start new round
-          </Button>
+          <div className="alert-container">
+            <Button
+              className="start-new-round"
+              variant="secondary"
+              size="lg"
+              block
+              onClick={this.startNewRound}
+            >
+              Start new round
+            </Button>
+          </div>
         </div>
       </div>
     );

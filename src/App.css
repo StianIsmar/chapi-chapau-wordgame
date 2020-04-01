@@ -17,7 +17,8 @@ html, body, #root, #root>div {
   padding-top:0px;
   text-align: center;
   background-color: #282c34;
-  font-family: 'Roboto', sans-serif;
+  --font-family: 'Roboto', sans-serif;
+  font-family: 'Fredoka One', cursive;
   height: 100%;
   display:flex;
   flex-direction:column;
@@ -128,5 +129,7 @@ color:white !important;
 .wordPool{
  font-family: 'Fredoka One', cursive;
 }
-
+.start-new-round{
+  width: 20% !important;
+}
 
