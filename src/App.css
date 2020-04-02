@@ -72,10 +72,11 @@ h1{
 
 div .wordPool{
   text-align: center;
-  color:#BC386B;
-  font-family: 'Roboto Mono', monospace;
-
+  color:#6C757D;
+  font-size:1.1em;
+  
 }
+
 div .wordform{
   text-align: center;
   flex:1 100%;
@@ -84,8 +85,8 @@ div .wordform{
 div .number{
   text-align: center;
   flex:1 100%;
-  font-size:24px;
-  font-weight: 1200;
+  font-size:2.0em;
+  
 
 }
   

@@ -23,17 +23,13 @@ class Word extends Component {
         <div className="add-margin">
           {!this.props.gotWordFromDb ? (
             <Button
-              className="brk-btn"
+              className="brk-btn first-word"
               disabled={this.props.noMoreWords}
               variant="primary"
               size="xxl"
+              onClick={this.props.getRandomWordFromDb}
             >
-              <a
-                className="first-word"
-                onClick={this.props.getRandomWordFromDb}
-              >
-                Click when your turn
-              </a>
+              Click when your turn
             </Button>
           ) : (
             <Modal.Dialog>

@@ -6,6 +6,7 @@ import WordForm from "./WordForm/WordForm";
 import { DB_CONFIG } from "./Config/config";
 import firebase from "firebase/app";
 import Navbar from "./Navbar/Navbar";
+import Wordpool from "./Wordpool/Wordpool";
 
 class App extends Component {
   constructor(props) {
@@ -207,8 +208,7 @@ class App extends Component {
 
           <div className="add-word-and-status">
             <div className="wordPool">
-              <div className="number">{this.state.words.length}</div>
-              Is the number of words in word pool
+              <Wordpool numOfWords={this.state.words.length}></Wordpool>
             </div>
             <WordForm className="wordform" addword={this.addword} />
           </div>
