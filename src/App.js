@@ -205,7 +205,6 @@ class App extends Component {
         {" "}
         <div className="App">
           <Navbar />
-
           <div className="add-word-and-status">
             <div className="wordPool">
               <Wordpool numOfWords={this.state.words.length}></Wordpool>
