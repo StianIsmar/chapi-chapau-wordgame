@@ -22,18 +22,22 @@ class Word extends Component {
       <div>
         <div className="add-margin">
           {!this.props.gotWordFromDb ? (
-            <Button className="brk-btn" variant="primary" size="xxl">
-              <a onClick={this.props.getRandomWordFromDb}>
-                Get your first word
-              </a>
+            <Button
+              className="brk-btn first-word"
+              disabled={this.props.noMoreWords}
+              variant="primary"
+              size="xxl"
+              onClick={this.props.getRandomWordFromDb}
+            >
+              Click when your turn
             </Button>
           ) : (
             <Modal.Dialog>
-              <Modal.Header closeButton>
-                <Modal.Title>Your word</Modal.Title>
+              <Modal.Header>
+                <Modal.Title className="modal-title">Your word</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <p className="fade-in" style={{ color: "black" }}>
+                <p className="fade-in word-content">
                   {this.props.randomWordContent}
                 </p>
               </Modal.Body>

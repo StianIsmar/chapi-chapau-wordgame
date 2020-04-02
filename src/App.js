@@ -6,6 +6,7 @@ import WordForm from "./WordForm/WordForm";
 import { DB_CONFIG } from "./Config/config";
 import firebase from "firebase/app";
 import Navbar from "./Navbar/Navbar";
+import Wordpool from "./Wordpool/Wordpool";
 
 class App extends Component {
   constructor(props) {
@@ -92,10 +93,15 @@ class App extends Component {
     const prevWords = this.state.completedWords;
     prevWords.push(this.state.randomWord);
 
-    this.setState({
-      completedWords: prevWords,
-      roundScore: this.roundScore + 1
-    });
+    this.setState(
+      {
+        completedWords: prevWords,
+        roundScore: this.state.roundScore + 1
+      },
+      () => {
+        console.log("ROUNDSCORE UPDATED", this.state.roundScore);
+      }
+    );
     // Remove word from db2!
     this.removeWord(this.state.randomWord.id);
     console.log("removed word");
@@ -181,7 +187,7 @@ class App extends Component {
         .then(() => {
           this.updateWordList().then(res => {
             console.log("THIS IS RES IN THEN", res);
-            this.setState({ words: res });
+            this.setState({ words: res, roundScore: 0 });
           });
           console.log("Done!");
           resolve();
@@ -202,8 +208,7 @@ class App extends Component {
 
           <div className="add-word-and-status">
             <div className="wordPool">
-              <div className="number">{this.state.words.length}</div>
-              Is the number of words in word pool
+              <Wordpool numOfWords={this.state.words.length}></Wordpool>
             </div>
             <WordForm className="wordform" addword={this.addword} />
           </div>
@@ -213,12 +218,12 @@ class App extends Component {
                 <div className="col"></div>
                 <div className="alert alert-dark col" role="alert">
                   <div className="larger-text">No more words</div>
-                  Click the "Start New Round button"
+                  <div className="smaller-text">Start new round</div>
                 </div>
                 <div className="col"></div>
               </div>
             ) : (
-              <div>more</div>
+              <div></div>
             )}
             <Word
               randomWordContent={this.state.randomWord.wordContent}
@@ -227,20 +232,23 @@ class App extends Component {
               key={1}
               roundScore={this.state.roundScore}
               completedWord={this.completedWord}
+              noMoreWords={!this.state.moreWordsExist}
             />
           </div>
-          <Button
-            variant="secondary"
-            size="lg"
-            block
-            onClick={this.startNewRound}
-          >
-            Start new round
-          </Button>
+          <div className="alert-container">
+            <Button
+              className="start-new-round"
+              variant="secondary"
+              size="lg"
+              block
+              onClick={this.startNewRound}
+            >
+              Start new round
+            </Button>
+          </div>
         </div>
       </div>
     );
   }
 }
-
 export default App;
