@@ -7,6 +7,8 @@ import { DB_CONFIG } from "./Config/config";
 import firebase from "firebase/app";
 import Navbar from "./Navbar/Navbar";
 import Wordpool from "./Wordpool/Wordpool";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Rules from "./Rules/Rules";
 
 class App extends Component {
   constructor(props) {
