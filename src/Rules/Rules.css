@@ -1,0 +1,33 @@
+.rules-container{
+    background-color: #232C2F;
+    display:flex;
+    --justify-content: center;
+    --align-items: center;
+    color:white;
+    padding:30px;
+    font-family: 'Fredoka One', cursive;
+    height: 100%;
+
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  .arrowback{
+      float:left !important;
+      flex-grow:0.1;
+  }
+  header{flex-grow:0.9}
+
+  .arrow{font-size:4em !important;
+  }

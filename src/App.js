@@ -7,6 +7,8 @@ import { DB_CONFIG } from "./Config/config";
 import firebase from "firebase/app";
 import Navbar from "./Navbar/Navbar";
 import Wordpool from "./Wordpool/Wordpool";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Rules from "./Rules/Rules";
 
 class App extends Component {
   constructor(props) {
@@ -205,7 +207,6 @@ class App extends Component {
         {" "}
         <div className="App">
           <Navbar />
-
           <div className="add-word-and-status">
             <div className="wordPool">
               <Wordpool numOfWords={this.state.words.length}></Wordpool>

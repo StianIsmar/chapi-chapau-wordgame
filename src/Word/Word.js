@@ -53,7 +53,7 @@ class Word extends Component {
                   className="green-btn"
                   onClick={this.props.completedWord}
                 >
-                  <i className="fa fa-check-square green"></i>
+                  <i className="fa fa-check green"></i>
                 </Button>
                 <Button
                   className="red-btn"
