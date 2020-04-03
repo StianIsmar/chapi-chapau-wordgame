@@ -4,6 +4,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import "../node_modules/font-awesome/css/font-awesome.min.css";
 import Landing from "./Landing";
 
 ReactDOM.render(
