@@ -6,10 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import "../node_modules/font-awesome/css/font-awesome.min.css";
 import Landing from "./Landing";
+import Startpage from "./Startpage/Startpage";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Landing />
+    <Startpage />
   </React.StrictMode>,
   document.getElementById("root")
 );
