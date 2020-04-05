@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 class Startpage extends Component {
   constructor(props) {
     super(props);
-    this.state = { gameObj: { key: "", gameId: -1 } };
+    this.state = { gameObj: { key: null, gameId: null }, testing: false };
     if (!firebase.apps.length) {
       firebase.initializeApp(DB_CONFIG);
     }
@@ -31,33 +31,6 @@ class Startpage extends Component {
       .database()
       .ref()
       .child("gameIds");
-  }
-
-  componentDidMount() {
-    /* When the components is loaded, all the existing words in db2 are loaded into
-    the words array 
-   */
-    /*console.log("componentWillMount called!!!!");
-    const previousIds = [];
-    this.gameIds.on("child_added", snap => {
-      previousIds.push({
-        id: snap.key,
-        gameId: snap.val().gameId
-      });
-      var newGameId = 0;
-      if (previousIds.length === 0) {
-        newGameId = 100;
-      } else {
-        newGameId = previousIds[previousIds.length - 1].gameId + 1;
-      }
-      this.setState(
-        {
-          gameId: newGameId
-        },
-        console.log(this.state.gameId)
-      );
-    });
-*/
   }
   getLargestGameIdInDb = () => {
     var myPromise = new Promise((resolve, reject) => {
@@ -76,13 +49,10 @@ class Startpage extends Component {
   };
 
   handleNewGame = async () => {
+    // Function fired when new game button is pressed!
     let a = await this.checkIfEmptyDb();
     if (a === false) {
-      // get the content
-      //return this.gameIds.once("value").then(function(snapshot) {
-      //var gameIds = snapshot.val();
-      //console.log("this is in the fetch one", gameIds);
-      //});
+      this.sendNew(0); // setting the new game id to 0.
     }
     if (a === true) {
       console.log("The db exists!");
@@ -112,9 +82,26 @@ class Startpage extends Component {
   };
   sendNew = newId => {
     try {
-      this.gameIds.push().set({ gameId: newId });
+      var newRef = this.gameIds.push();
+      var newKey = newRef.key;
+      console.log(newKey, newId);
+      newRef.set({ gameId: newId }).then(() => {
+        console.log("egere");
+        this.setState(
+          {
+            testing: true,
+            gameObj: {
+              gameId: newId,
+              key: newKey
+            }
+          },
+          () => {
+            console.log("New state:", this.state);
+          }
+        );
+      });
     } catch (e) {
-      console.log("Did not push to firebase.");
+      console.log("Game update not pushed to firebase");
     }
   };
 
