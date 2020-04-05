@@ -9,6 +9,7 @@ import Navbar from "./Navbar/Navbar";
 import Wordpool from "./Wordpool/Wordpool";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Rules from "./Rules/Rules";
+import { connect } from "react-redux";
 
 class App extends Component {
   constructor(props) {
@@ -17,16 +18,17 @@ class App extends Component {
       firebase.initializeApp(DB_CONFIG);
     }
     firebase.database.enableLogging(false);
-
+    let id = this.props.globalGameId.toString();
+    let key = this.props.globalGameKey.toString(); // The correct redux state is not here yet.
     this.dbMain = firebase
       .database()
       .ref()
-      .child("words");
+      .child("/gameIds/" + key + "/words");
 
     this.dbDynamic = firebase
       .database()
       .ref()
-      .child("dynamicDb");
+      .child("/gameIds/" + key + "/dynamicDb");
 
     this.state = {
       words: [],
@@ -252,4 +254,13 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+function mapStateToProps(state) {
+  console.log("mapStateToProps", state);
+  return {
+    globalGameId: state.globalGameId,
+    globalGameKey: state.globalGameKey
+  };
+}
+
+export default connect(mapStateToProps, null)(App);

@@ -5,9 +5,12 @@ import firebase from "firebase/app";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { setGameId } from "../Actions/actions";
 import Button from "@material-ui/core/Button";
 import { DB_CONFIG } from "../Config/config";
+import { withRouter } from "react-router-dom";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -54,7 +57,7 @@ class Startpage extends Component {
     // Function fired when new game button is pressed!
     let a = await this.checkIfEmptyDb();
     if (a === false) {
-      this.sendNew(0); // setting the new game id to 0.
+      this.sendNew(0, this.handleState); // setting the new game id to 0.
     }
     if (a === true) {
       console.log("The db exists!");
@@ -79,17 +82,21 @@ class Startpage extends Component {
   updateAndSendNew = async callback => {
     this.getLargestGameIdInDb().then(newId => {
       let newGameId = newId + 1; // adding one to the larges gameId in the db
-      callback(newGameId);
+      callback(newGameId, this.handleState);
     });
   };
-  sendNew = newId => {
+  sendNew = async (newId, callback) => {
+    await callback(newId); // This is completed first before routing to the playing app.
+    this.routingFunction();
+  };
+  handleState = async newId => {
     try {
       var newRef = this.gameIds.push();
       var newKey = newRef.key;
       console.log(newKey, newId);
       newRef.set({ gameId: newId }).then(() => {
         console.log("add to redux state!");
-        this.props.changeGlobalId(newId, newKey);
+        this.props.changeGlobalId(newId, newKey); // updating store
         this.setState(
           {
             testing: true,
@@ -106,6 +113,11 @@ class Startpage extends Component {
     } catch (e) {
       console.log("Game update not pushed to firebase");
     }
+  };
+
+  // I need to make sure this one is called after all those other ones!
+  routingFunction = () => {
+    this.props.history.push("/play");
   };
 
   render() {
@@ -139,15 +151,13 @@ class Startpage extends Component {
 
           <div className="new">
             <div>Generate new game pin</div>
-            <NavLink exact to="/play">
-              <Button
-                id="outlined-button"
-                variant="outlined"
-                onClick={this.handleNewGame}
-              >
-                Create game PIN
-              </Button>
-            </NavLink>
+            <Button
+              id="outlined-button"
+              variant="outlined"
+              onClick={this.handleNewGame}
+            >
+              Create game PIN
+            </Button>
           </div>
         </div>
       </div>
@@ -170,4 +180,7 @@ function mapDispatchToProps(dispatch) {
     }
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Startpage);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(Startpage);
