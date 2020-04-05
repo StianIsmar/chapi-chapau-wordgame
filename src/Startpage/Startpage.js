@@ -4,6 +4,8 @@ import "./Startpage.css";
 import firebase from "firebase/app";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { setGameId } from "../Actions/actions";
 import Button from "@material-ui/core/Button";
 import { DB_CONFIG } from "../Config/config";
 const useStyles = makeStyles(theme => ({
@@ -86,7 +88,8 @@ class Startpage extends Component {
       var newKey = newRef.key;
       console.log(newKey, newId);
       newRef.set({ gameId: newId }).then(() => {
-        console.log("egere");
+        console.log("add to redux state!");
+        this.props.changeGlobalId(newId);
         this.setState(
           {
             testing: true,
@@ -145,8 +148,25 @@ class Startpage extends Component {
             </Button>
           </div>
         </div>
+        <h1>{this.props.gameId}</h1>
+        <h1>HETTTT</h1>
       </div>
     );
   }
 }
-export default Startpage;
+
+function mapStateToProps(state) {
+  console.log("mapStateToProps", state);
+  return {
+    gameId: state.globalGameId
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    changeGlobalId: id => {
+      dispatch(setGameId(id));
+    }
+  };
+}
+export default connect(null, mapDispatchToProps)(Startpage);

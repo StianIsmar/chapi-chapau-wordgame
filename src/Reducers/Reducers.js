@@ -1,4 +1,4 @@
-import { SET_GAME_ID } from "./Actions/Actions";
+import { SET_GAME_ID } from "../Actions/actions";
 
 const initialState = {
   globalGameId: null
@@ -18,3 +18,5 @@ function gameApp(state, action) {
 
   return state;
 }
+
+export default gameApp;
