@@ -6,10 +6,10 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { setGameId } from "../Actions/actions";
+import { setGameId, setGameId1, updateState } from "../Actions/actions";
 import Button from "@material-ui/core/Button";
 import { DB_CONFIG } from "../Config/config";
-import { withRouter } from "react-router-dom";
+import history from "../history.js";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -87,7 +87,7 @@ class Startpage extends Component {
   };
   sendNew = async (newId, callback) => {
     await callback(newId); // This is completed first before routing to the playing app.
-    this.routingFunction();
+    //this.routingFunction();
   };
   handleState = async newId => {
     try {
@@ -96,7 +96,7 @@ class Startpage extends Component {
       console.log(newKey, newId);
       newRef.set({ gameId: newId }).then(() => {
         console.log("add to redux state!");
-        this.props.changeGlobalId(newId, newKey); // updating store
+        this.props.changeGlobalId2(newId, newKey); // updating store, is slow.
         this.setState(
           {
             testing: true,
@@ -164,7 +164,6 @@ class Startpage extends Component {
     );
   }
 }
-
 function mapStateToProps(state) {
   console.log("mapStateToProps", state);
   return {
@@ -176,11 +175,19 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     changeGlobalId: (id, gameKey) => {
-      dispatch(setGameId(id, gameKey));
+      dispatch(setGameId1(id, gameKey));
+    },
+    changeGlobalId1: (id, gameKey) => {
+      setGameId1(id, gameKey).then(() => {
+        this.props.history.push("/winning");
+      });
+    },
+    changeGlobalId2: (id, gameKey) => {
+      dispatch(updateState(id, gameKey)).then(() => {
+        history.push("/play");
+      });
     }
   };
 }
-export default compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(Startpage);
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Startpage);

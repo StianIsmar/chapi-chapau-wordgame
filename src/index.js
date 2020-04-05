@@ -12,12 +12,16 @@ import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./Reducers/Reducers";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import promiseMiddleware from "redux-promise";
 
 import thunk from "redux-thunk";
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
 function configureStore(preloadedState) {
-  return createStore(rootReducer, composeEnhancer(applyMiddleware(thunk)));
+  return createStore(
+    rootReducer,
+    composeEnhancer(applyMiddleware(thunk, promiseMiddleware))
+  );
 }
 const store = configureStore();
 
