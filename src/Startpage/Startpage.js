@@ -89,7 +89,7 @@ class Startpage extends Component {
       console.log(newKey, newId);
       newRef.set({ gameId: newId }).then(() => {
         console.log("add to redux state!");
-        this.props.changeGlobalId(newId);
+        this.props.changeGlobalId(newId, newKey);
         this.setState(
           {
             testing: true,
@@ -148,8 +148,6 @@ class Startpage extends Component {
             </Button>
           </div>
         </div>
-        <h1>{this.props.gameId}</h1>
-        <h1>HETTTT</h1>
       </div>
     );
   }
@@ -158,15 +156,16 @@ class Startpage extends Component {
 function mapStateToProps(state) {
   console.log("mapStateToProps", state);
   return {
-    gameId: state.globalGameId
+    globalGameId: state.globalGameId,
+    globalGameKey: state.globalGameKey
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeGlobalId: id => {
-      dispatch(setGameId(id));
+    changeGlobalId: (id, gameKey) => {
+      dispatch(setGameId(id, gameKey));
     }
   };
 }
-export default connect(null, mapDispatchToProps)(Startpage);
+export default connect(mapStateToProps, mapDispatchToProps)(Startpage);
