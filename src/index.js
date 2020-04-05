@@ -24,7 +24,7 @@ const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <Startpage />
+      <Landing />
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")

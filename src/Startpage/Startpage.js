@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Startpage.css";
 import firebase from "firebase/app";
 import TextField from "@material-ui/core/TextField";
@@ -139,13 +139,15 @@ class Startpage extends Component {
 
           <div className="new">
             <div>Generate new game pin</div>
-            <Button
-              id="outlined-button"
-              variant="outlined"
-              onClick={this.handleNewGame}
-            >
-              Create game PIN
-            </Button>
+            <NavLink exact to="/play">
+              <Button
+                id="outlined-button"
+                variant="outlined"
+                onClick={this.handleNewGame}
+              >
+                Create game PIN
+              </Button>
+            </NavLink>
           </div>
         </div>
       </div>
