@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./Navbar.css";
 import { BrowserRouter as Router, NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+
 class Navbar extends Component {
   render() {
     return (
@@ -11,6 +13,7 @@ class Navbar extends Component {
               <NavLink exact to="/">
                 <h1 className="mh-logo">Chapi-chapau</h1>
               </NavLink>
+              <h4>Your game pin: {this.props.globalGameId}</h4>
             </li>
             <nav className="main-nav">
               <ul className="main-nav-list">
@@ -25,5 +28,12 @@ class Navbar extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  console.log("mapStateToProps", state);
+  return {
+    globalGameId: state.globalGameId,
+    globalGameKey: state.globalGameKey
+  };
+}
 
-export default Navbar;
+export default connect(mapStateToProps, null)(Navbar);
