@@ -9,6 +9,7 @@ import Navbar from "./Navbar/Navbar";
 import Wordpool from "./Wordpool/Wordpool";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Rules from "./Rules/Rules";
+import { connect } from "react-redux";
 
 class App extends Component {
   constructor(props) {
@@ -17,16 +18,17 @@ class App extends Component {
       firebase.initializeApp(DB_CONFIG);
     }
     firebase.database.enableLogging(false);
-
+    let id = this.props.globalGameId.toString();
+    let key = this.props.globalGameKey.toString(); // The correct redux state is not here yet.
     this.dbMain = firebase
       .database()
       .ref()
-      .child("words");
+      .child("/gameIds/" + key + "/words");
 
     this.dbDynamic = firebase
       .database()
       .ref()
-      .child("dynamicDb");
+      .child("/gameIds/" + key + "/dynamicDb");
 
     this.state = {
       words: [],
@@ -35,7 +37,7 @@ class App extends Component {
       gotWordFromDb: false,
       roundScore: 0,
       moreWordsExist: true,
-      mounted: false
+      mounted: false,
     };
   }
   // before component mounts
@@ -46,32 +48,36 @@ class App extends Component {
    */
     console.log("componentWillMount called!!!!");
     const previousWords = [];
-    this.dbDynamic.on("child_added", snap => {
+    this.dbDynamic.on("child_added", (snap) => {
       previousWords.push({
         id: snap.key,
-        wordContent: snap.val().wordContent
+        wordContent: snap.val().wordContent,
       });
 
       this.setState({
         words: previousWords,
-        mounted: true
+        mounted: true,
       });
     });
   }
 
   updateWordList = async () => {
     console.log("Calling updatewordlist!");
+    console.log(this.dbDynamic);
     const previousWords = [];
-    this.dbDynamic.on("child_added", snap => {
-      previousWords.push({
-        id: snap.key,
-        wordContent: snap.val().wordContent
+    let newPromise = new Promise((resolve, reject) => {
+      this.dbDynamic.on("child_added", (snap) => {
+        previousWords.push({
+          id: snap.key,
+          wordContent: snap.val().wordContent,
+        });
+        resolve(previousWords);
       });
     });
-    return previousWords;
+    return newPromise;
   };
 
-  addword = word => {
+  addword = (word) => {
     console.log(typeof word);
     // push the new word to both the dbs:
     // same as writing firebase.databse().ref().child('dbMain').push().set({wordContent:word})
@@ -98,7 +104,7 @@ class App extends Component {
     this.setState(
       {
         completedWords: prevWords,
-        roundScore: this.state.roundScore + 1
+        roundScore: this.state.roundScore + 1,
       },
       () => {
         console.log("ROUNDSCORE UPDATED", this.state.roundScore);
@@ -110,56 +116,61 @@ class App extends Component {
     return this.getRandomWordFromDb();
   };
 
-  removeWord = wordId => {
+  removeWord = (wordId) => {
     this.dbDynamic.child(wordId).remove();
   };
 
-  checkIfEmptyDb = async => {
-    var ref = firebase.database().ref("dynamicDb");
-    // Return value of the promise
-    return ref.once("value").then(snapshot => {
-      const a = snapshot.exists();
-      return a;
+  checkIfEmptyDb = () => {
+    var myPromise = new Promise((resolve, reject) => {
+      //let ref = firebase.database().ref().child("gameIds").child("gameId");
+      this.dbDynamic.once("value").then((snapshot) => {
+        const a = snapshot.exists();
+        console.log("in promis", a);
+
+        if (a === true) {
+          resolve(a);
+        } else {
+          reject(new Error("There are no more words"));
+        }
+      });
     });
+    return myPromise;
   };
 
   getRandomWordFromDb = async () => {
     // First, check if there are any more words to guess:
-    let moreWords = await this.checkIfEmptyDb();
-    console.log("moreWords", moreWords); //undefined
-    /* 
-    Await is used to pause the execution until updateWordList returns the updated list 
-    from firebase.
-    */
-    if (!moreWords) {
-      console.log("No more words exist!");
-      this.setState({ moreWordsExist: false });
-    } else {
-      const updatedWordList = await this.updateWordList(); // {id:x,wordContent:"the_word"}
-      console.log(
-        "The new list where we are selecting a random element from..."
-      );
-      console.log(updatedWordList);
 
-      // select a word randomly from the list:
-      const newWord =
-        updatedWordList[Math.floor(Math.random() * updatedWordList.length)];
-      console.log("This is the selected new word:");
-      console.log(newWord);
-      this.setState(
-        {
-          randomWord: {
-            id: newWord.id,
-            wordContent: newWord.wordContent
-          },
-          words: updatedWordList,
-          gotWordFromDb: true
-        },
-        () => {
-          console.log("got word from db", this.state.gotWordFromDb);
-        }
-      );
-    }
+    this.checkIfEmptyDb()
+      .then((res) => {
+        console.log(res);
+        this.updateWordList().then((updatedWordList) => {
+          console.log(updatedWordList);
+
+          // select a word randomly from the list:
+          const newWord =
+            updatedWordList[Math.floor(Math.random() * updatedWordList.length)];
+          console.log("This is the selected new word:");
+          console.log(newWord);
+          this.setState(
+            {
+              randomWord: {
+                id: newWord.id,
+                wordContent: newWord.wordContent,
+              },
+              words: updatedWordList,
+              gotWordFromDb: true,
+            },
+            () => {
+              console.log("got word from db", this.state.gotWordFromDb);
+            }
+          );
+        }); // {id:x,wordContent:"the_word"}
+      })
+      .catch((error) => {
+        console.log("No more words exist!");
+        this.setState({ moreWordsExist: false });
+        alert(error.message);
+      });
   };
 
   startNewRound = () => {
@@ -172,29 +183,26 @@ class App extends Component {
     );
   };
 
-  copyFbRecord = oldRef => {
-    const newRef = firebase
-      .database()
-      .ref()
-      .child("dynamicDb");
+  copyFbRecord = (oldRef) => {
+    const newRef = this.dbDynamic;
     console.log("newRef", newRef);
     console.log("oldRef", oldRef);
     this.setState({ completedWords: [], moreWordsExist: true });
     const promise = new Promise((resolve, reject) => {
       oldRef
         .once("value")
-        .then(snap => {
+        .then((snap) => {
           return newRef.set(snap.val());
         })
         .then(() => {
-          this.updateWordList().then(res => {
-            console.log("THIS IS RES IN THEN", res);
+          this.updateWordList().then((res) => {
+            console.log("THIS IS RES IN the COPY FUNCTION.", res);
             this.setState({ words: res, roundScore: 0 });
           });
           console.log("Done!");
           resolve();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.message);
           reject();
         });
@@ -252,4 +260,13 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+function mapStateToProps(state) {
+  console.log("mapStateToProps", state);
+  return {
+    globalGameId: state.globalGameId,
+    globalGameKey: state.globalGameKey,
+  };
+}
+
+export default connect(mapStateToProps, null)(App);

@@ -1,0 +1,56 @@
+.wrapper{
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.container{
+    display: flex;
+    --align-items: center;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    background-color: #232C2F;
+    height: 100%;
+    width: 100%;
+    font-size:1.4em;
+    padding-top:20px;
+    flex-direction: row;
+    padding: 40px;
+}
+
+  .join{
+    text-align:center;
+    flex-grow:1;
+  }
+  .new{
+      text-align: center;
+      flex-grow:1;
+  }
+
+  #outlined-full-width{
+      color:white;
+      border-color:white;
+
+  }
+  #outlined-full-width{
+      border-color:white !important;
+      color:white;
+  }
+  #outlined-full-width{
+    --background-color: #202020 !important;
+    color:white;
+    border: 1px solid #4A90E2;
+    border-radius: 3px;
+
+  }
+
+  #outlined-full-width:focus,#outlined-full-width:hover{
+    background-color: inherit !important;
+}
+#outlined-button{
+    border: 1px solid #4A90E2;
+    color:white;
+    margin-top:20px;
+    --height:60px;
+}
