@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { setGameId, setGameId1, updateState } from "../Actions/actions";
+import { setGameId, setGameId1, updateState } from "../Actions/Actions";
 import Button from "@material-ui/core/Button";
 import { DB_CONFIG } from "../Config/config";
 import history from "../history.js";

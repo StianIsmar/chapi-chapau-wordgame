@@ -1,8 +1,8 @@
-import { SET_GAME_ID } from "../Actions/actions";
+import { SET_GAME_ID } from "../Actions/Actions";
 
 const initialState = {
   globalGameId: 1,
-  globalGameKey: 1
+  globalGameKey: 1,
 };
 function gameApp(state, action) {
   if (typeof state === "undefined") {
@@ -12,7 +12,7 @@ function gameApp(state, action) {
     case SET_GAME_ID:
       return Object.assign({}, state, {
         globalGameId: action.id,
-        globalGameKey: action.key
+        globalGameKey: action.key,
       });
     default:
       return state;
