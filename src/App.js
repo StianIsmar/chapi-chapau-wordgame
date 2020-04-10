@@ -10,6 +10,7 @@ import Wordpool from "./Wordpool/Wordpool";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Rules from "./Rules/Rules";
 import { connect } from "react-redux";
+import Modal1 from "./Modal/Modal1";
 
 class App extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class App extends Component {
    */
     console.log("componentWillMount called!!!!");
     const previousWords = [];
-    this.dbDynamic.on("child_added", (snap) => {
+    this.dbMain.on("child_added", (snap) => {
       previousWords.push({
         id: snap.key,
         wordContent: snap.val().wordContent,
@@ -169,7 +170,7 @@ class App extends Component {
       .catch((error) => {
         console.log("No more words exist!");
         this.setState({ moreWordsExist: false });
-        alert(error.message);
+        // (error.message);
       });
   };
 
@@ -216,24 +217,19 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <div className="add-word-and-status">
+            <div>
+              <Modal1
+                open={!this.state.moreWordsExist}
+                startNewRound={this.startNewRound}
+              />
+            </div>
+
             <div className="wordPool">
               <Wordpool numOfWords={this.state.words.length}></Wordpool>
             </div>
             <WordForm className="wordform" addword={this.addword} />
           </div>
           <div>
-            {!this.state.moreWordsExist ? (
-              <div className="alert-container">
-                <div className="col"></div>
-                <div className="alert alert-dark col" role="alert">
-                  <div className="larger-text">No more words</div>
-                  <div className="smaller-text">Start new round</div>
-                </div>
-                <div className="col"></div>
-              </div>
-            ) : (
-              <div></div>
-            )}
             <Word
               randomWordContent={this.state.randomWord.wordContent}
               getRandomWordFromDb={this.getRandomWordFromDb}
@@ -248,7 +244,7 @@ class App extends Component {
             <Button
               className="start-new-round"
               variant="secondary"
-              size="lg"
+              size="sm"
               block
               onClick={this.startNewRound}
             >

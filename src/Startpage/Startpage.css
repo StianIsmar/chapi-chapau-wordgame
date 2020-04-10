@@ -6,7 +6,7 @@
     flex-direction: column;
 }
 .container{
-    display: flex;
+    display:-webkit-flex;
     --align-items: center;
     color: white;
     font-family: 'Fredoka One', cursive;
@@ -52,5 +52,17 @@
     border: 1px solid #4A90E2;
     color:white;
     margin-top:20px;
-    --height:60px;
+    background-color:#027CB0;
+    border-color: #027CB0;
+    margin-top: 7px;
+
+
+    height:60px;
+}
+#outlined-button:hover{
+    opacity: 70%;
+}
+
+#outlined-full-width-helper-text{
+    height: 1px;
 }

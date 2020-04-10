@@ -1,7 +1,7 @@
 .word-wrapper{
     --width: 100%; 
     --text-align: center;
-    display: flex;
+    display:-webkit-flex;
     align-items: center;
     justify-content: center;
      }
@@ -12,6 +12,7 @@
     --margin: 0 auto;
     --padding: 3px;
     max-width: 50%;
+    z-index: 0;
     }
 .btn:active{
 border-color: green !important;

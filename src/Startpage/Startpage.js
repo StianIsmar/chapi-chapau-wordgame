@@ -134,7 +134,7 @@ class Startpage extends Component {
       })
       .catch((error) => {
         // Game ID does not exist in db.
-        alert(error.message);
+        alert("Game PIN does not exist ");
       });
 
     // compare the gameID with the db
