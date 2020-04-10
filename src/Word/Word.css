@@ -152,3 +152,8 @@ border-color:none !important;
     -webkit-filter: brightness(0.8);
     filter: brightness(0.8);
 }
+
+.first-word{
+    color:#B43365 !important;
+
+}

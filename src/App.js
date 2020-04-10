@@ -230,20 +230,6 @@ class App extends Component {
             <WordForm className="wordform" addword={this.addword} />
           </div>
           <div>
-            {!this.state.moreWordsExist ? (
-              <div>
-                <div className="alert-container">
-                  <div className="col"></div>
-                  <div className="alert alert-dark col" role="alert">
-                    <div className="larger-text">No more words</div>
-                    <div className="smaller-text">Start new round</div>
-                  </div>
-                  <div className="col"></div>
-                </div>
-              </div>
-            ) : (
-              <div></div>
-            )}
             <Word
               randomWordContent={this.state.randomWord.wordContent}
               getRandomWordFromDb={this.getRandomWordFromDb}
@@ -258,7 +244,7 @@ class App extends Component {
             <Button
               className="start-new-round"
               variant="secondary"
-              size="lg"
+              size="sm"
               block
               onClick={this.startNewRound}
             >

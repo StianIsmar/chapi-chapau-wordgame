@@ -14,13 +14,13 @@ class Navbar extends Component {
                 <h1 className="mh-logo">Chapi-chapau</h1>
               </NavLink>
               <h4>Your game pin: {this.props.globalGameId}</h4>
-
-              <h4>Your game key: {this.props.globalGameKey}</h4>
             </li>
             <nav className="main-nav">
               <ul className="main-nav-list">
                 <li>
-                  <NavLink to="/rules">Rules</NavLink>
+                  <NavLink to="/rules">
+                    <h1 className="rules">Rules</h1>
+                  </NavLink>
                 </li>
               </ul>
             </nav>
@@ -34,7 +34,7 @@ function mapStateToProps(state) {
   console.log("mapStateToProps", state);
   return {
     globalGameId: state.globalGameId,
-    globalGameKey: state.globalGameKey
+    globalGameKey: state.globalGameKey,
   };
 }
 

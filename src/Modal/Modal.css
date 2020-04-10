@@ -10,15 +10,34 @@
 }*/
 
 .modal-dialog {
+    display:flex;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) !important;
     font-family: 'Fredoka One', cursive;
+    align-items: center;
+    justify-content: center;
+    
     
 }
 
 .modal-content {
-width: 100%;
-text-align: center;
+    width: 100%;
+    text-align: center;
+    margin:0;
+}
+
+.modal-dialog .btn-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 45px;
+    margin-bottom:40px;
+    margin: 0 auto;
+    background-color:#B43365 !important;
+    border-color:#B43365 !important;
+    ;
+
 }

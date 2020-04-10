@@ -26,11 +26,9 @@ const Modal1 = (props) => {
         <Modal show={true}>
           <Modal.Header>No more words to guess</Modal.Header>
           <Modal.Body>
-            {" "}
             <Button
-              className="start-new-round"
               variant="secondary"
-              size="lg"
+              size="sm"
               block
               onClick={props.startNewRound}
             >
