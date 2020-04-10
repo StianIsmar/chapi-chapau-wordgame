@@ -25,7 +25,7 @@ h1.mh-logo{
 }
 /*Flex-wrap breaks it into two lines on small screens*/
 .main-header .container {
-	display: flex;
+    display:-webkit-flex;
 	align-items: center;
 	justify-content: space-around;
 	flex-wrap: wrap;

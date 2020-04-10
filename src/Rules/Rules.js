@@ -8,19 +8,18 @@ class Rules extends Component {
   render() {
     return (
       <div className="rules-container row">
-        <NavLink className="arrowback" exact to="/">
+        <NavLink className="arrowback" exact to="/play">
           <ArrowBackIcon className="arrow" />
         </NavLink>
         <div>
           <header className="column">
             <h1>Rules</h1>
           </header>
-          <p>
-            <ol>
-              <li>Add words to database</li>
-              <li>Get word when it's your turn</li>
-            </ol>
-          </p>
+
+          <ol>
+            <li>Add words to database</li>
+            <li>Get word when it's your turn</li>
+          </ol>
         </div>
       </div>
     );

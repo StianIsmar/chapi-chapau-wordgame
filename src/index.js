@@ -13,9 +13,10 @@ import rootReducer from "./Reducers/Reducers";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import promiseMiddleware from "redux-promise";
+import { compose } from "redux";
 
 import thunk from "redux-thunk";
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 function configureStore(preloadedState) {
   return createStore(

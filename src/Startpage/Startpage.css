@@ -6,7 +6,7 @@
     flex-direction: column;
 }
 .container{
-    display: flex;
+    display:-webkit-flex;
     --align-items: center;
     color: white;
     font-family: 'Fredoka One', cursive;

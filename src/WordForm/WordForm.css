@@ -1,7 +1,7 @@
 .word-wrapper{
     --width: 100%; 
     --text-align: center;
-    display: flex;
+    display:-webkit-flex;
     align-items: center;
     justify-content: center;
      }
