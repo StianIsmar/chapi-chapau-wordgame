@@ -10,13 +10,12 @@ class Landing extends Component {
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path="/rules" component={Rules} />
           <Route exact path="/" component={Startpage} />
+          <Route exact path="/rules" component={Rules} />
           <Route exact path="/play" component={App} />
         </Switch>
       </Router>
     );
   }
 }
-
 export default Landing;

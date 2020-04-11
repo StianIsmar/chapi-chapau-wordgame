@@ -47,7 +47,6 @@ class App extends Component {
     /* When the components is loaded, all the existing words in db2 are loaded into
     the words array 
    */
-    console.log("componentWillMount called!!!!");
     const previousWords = [];
     this.dbMain.on("child_added", (snap) => {
       previousWords.push({
@@ -63,8 +62,6 @@ class App extends Component {
   }
 
   updateWordList = async () => {
-    console.log("Calling updatewordlist!");
-    console.log(this.dbDynamic);
     const previousWords = [];
     let newPromise = new Promise((resolve, reject) => {
       this.dbDynamic.on("child_added", (snap) => {
@@ -79,26 +76,19 @@ class App extends Component {
   };
 
   addword = (word) => {
-    console.log(typeof word);
     // push the new word to both the dbs:
     // same as writing firebase.databse().ref().child('dbMain').push().set({wordContent:word})
     try {
       this.dbMain.push().set({ wordContent: word });
-    } catch (e) {
-      console.log("Make sure words is filled in");
-    }
+    } catch (e) {}
     try {
       this.dbDynamic.push().set({ wordContent: word });
-    } catch (e) {
-      console.log("Make sure word is filled in");
-    }
+    } catch (e) {}
   };
 
   completedWord = () => {
     // if the user gets a point for the word, it is appended to completedWords array:
     // need to check if the words is gotten from the databse.. gotFromDb?
-    console.log("This is the current word....");
-    console.log(this.state.randomWord);
     const prevWords = this.state.completedWords;
     prevWords.push(this.state.randomWord);
 
@@ -107,13 +97,10 @@ class App extends Component {
         completedWords: prevWords,
         roundScore: this.state.roundScore + 1,
       },
-      () => {
-        console.log("ROUNDSCORE UPDATED", this.state.roundScore);
-      }
+      () => {}
     );
     // Remove word from db2!
     this.removeWord(this.state.randomWord.id);
-    console.log("removed word");
     return this.getRandomWordFromDb();
   };
 
@@ -126,7 +113,6 @@ class App extends Component {
       //let ref = firebase.database().ref().child("gameIds").child("gameId");
       this.dbDynamic.once("value").then((snapshot) => {
         const a = snapshot.exists();
-        console.log("in promis", a);
 
         if (a === true) {
           resolve(a);
@@ -143,15 +129,11 @@ class App extends Component {
 
     this.checkIfEmptyDb()
       .then((res) => {
-        console.log(res);
         this.updateWordList().then((updatedWordList) => {
-          console.log(updatedWordList);
-
           // select a word randomly from the list:
           const newWord =
             updatedWordList[Math.floor(Math.random() * updatedWordList.length)];
-          console.log("This is the selected new word:");
-          console.log(newWord);
+
           this.setState(
             {
               randomWord: {
@@ -161,14 +143,11 @@ class App extends Component {
               words: updatedWordList,
               gotWordFromDb: true,
             },
-            () => {
-              console.log("got word from db", this.state.gotWordFromDb);
-            }
+            () => {}
           );
         }); // {id:x,wordContent:"the_word"}
       })
       .catch((error) => {
-        console.log("No more words exist!");
         this.setState({ moreWordsExist: false });
         // (error.message);
       });
@@ -186,8 +165,7 @@ class App extends Component {
 
   copyFbRecord = (oldRef) => {
     const newRef = this.dbDynamic;
-    console.log("newRef", newRef);
-    console.log("oldRef", oldRef);
+
     this.setState({ completedWords: [], moreWordsExist: true });
     const promise = new Promise((resolve, reject) => {
       oldRef
@@ -197,14 +175,11 @@ class App extends Component {
         })
         .then(() => {
           this.updateWordList().then((res) => {
-            console.log("THIS IS RES IN the COPY FUNCTION.", res);
             this.setState({ words: res, roundScore: 0 });
           });
-          console.log("Done!");
           resolve();
         })
         .catch((err) => {
-          console.log(err.message);
           reject();
         });
     });
@@ -258,7 +233,6 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps", state);
   return {
     globalGameId: state.globalGameId,
     globalGameKey: state.globalGameKey,

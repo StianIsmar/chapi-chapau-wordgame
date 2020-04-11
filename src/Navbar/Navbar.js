@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Navbar.css";
-import { BrowserRouter as Router, NavLink } from "react-router-dom";
+import { Router, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Navbar extends Component {

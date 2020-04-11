@@ -11,18 +11,6 @@ import Button from "@material-ui/core/Button";
 import { DB_CONFIG } from "../Config/config";
 import history from "../history.js";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: "25ch",
-  },
-}));
-
 class Startpage extends Component {
   constructor(props) {
     super(props);
