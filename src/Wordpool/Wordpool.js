@@ -5,7 +5,7 @@ class Wordpool extends Component {
     return (
       <div className="word-pool">
         <div className="number">
-          {this.props.numOfWords === 0 ? (
+          {this.props.numOfWords === 0 && this.props.mounted === true ? (
             <span
               className="spinner-border spinner-border-sm"
               role="status"

@@ -188,7 +188,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        {" "}
         <div className="App">
           <Navbar />
           <div className="add-word-and-status">
@@ -200,7 +199,10 @@ class App extends Component {
             </div>
 
             <div className="wordPool">
-              <Wordpool numOfWords={this.state.words.length}></Wordpool>
+              <Wordpool
+                numOfWords={this.state.words.length}
+                mounted={this.state.mounted}
+              ></Wordpool>
             </div>
             <WordForm className="wordform" addword={this.addword} />
           </div>

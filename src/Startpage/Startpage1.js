@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Startpage.css";
 import firebase from "firebase/app";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { setGameId, setGameId1, updateState } from "../Actions/Actions";
@@ -149,15 +150,15 @@ class Startpage extends Component {
       <div className="wrapper">
         <div>
           <header className="main-header">
-            <div className="start-container">
-              <h1 className="start-logo">Chapi-chapau</h1>
+            <div className="container">
+              <h1 className="mh-logo">Chapi-chapau</h1>
               <nav className="main-nav">
                 <ul className="main-nav-list"></ul>
               </nav>
             </div>
           </header>
         </div>
-        <div className="start-container">
+        <div className="container">
           <div className="join">
             <div>Join existing game</div>
             <div className="column">
@@ -166,6 +167,7 @@ class Startpage extends Component {
                 value={this.state.newWordContent}
                 style={{ margin: 8 }}
                 placeholder="GAME PIN + ENTER"
+                helperText="Full width!"
                 margin="normal"
                 InputLabelProps={{
                   shrink: true,
