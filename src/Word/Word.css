@@ -62,7 +62,11 @@ color:black;
     justify-content: center;
     align-items: center;
 }
-
+@media only screen and (max-width: 600px){
+	.add-margin{
+        padding-bottom:15px;
+	  }
+}
 
 
 .green{
@@ -84,6 +88,20 @@ color:black;
     font-size: 18px;
     font-weight: 100;
 }
+
+@media only screen and (max-width: 600px){
+	.score{
+        width: 50px;
+        position: absolute;
+        left:10px;
+        font-size: 14px;
+        font-weight: 100;
+    }
+}
+
+
+
+
 .btn-primary.green-btn{
     background-color: green !important;
     background: green !important;
@@ -104,7 +122,10 @@ color:black;
 
 @media only screen and (max-width: 600px){
     .modal-body{
-        width: 250px;
+        width: 300px;
+    }
+    div.modal-dialog{
+        width: 35px;
     }
 }
 
@@ -161,4 +182,20 @@ border-color:none !important;
 .model-dialog{
     margin-top:20px
 
+}
+
+div.modal-header{
+    display:inline;
+    --flex-direction: row;
+    --justify-content: space-evenly;
+    position: relative !important;
+
+}
+
+.timer{
+    float:right;
+}
+
+.your-word{
+    position: absolute;
 }

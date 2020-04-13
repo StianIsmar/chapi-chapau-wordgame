@@ -1,11 +1,21 @@
 .wrapper{
     height: 100%;
     display: -webkit-flex;
-    display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin:0;
+    background-color: #232C2F;
+
+    
 }
-.container{
+div.column{
+    display: flex;
+    align-items: center;
+}
+.start-container{
     display:-webkit-flex;
     --align-items: center;
     color: white;
@@ -13,13 +23,18 @@
     background-color: #232C2F;
     height: 100%;
     width: 100%;
-    font-size:1.4em;
+    --font-size:1.4em;
     padding-top:20px;
     flex-direction: row;
     padding: 40px;
+
 }
 
   .join{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     text-align:center;
     flex-grow:1;
   }
@@ -55,14 +70,40 @@
     background-color:#027CB0;
     border-color: #027CB0;
     margin-top: 7px;
+    
 
 
     height:60px;
 }
 #outlined-button:hover{
-    opacity: 70%;
+    opacity: 0.7;
 }
 
 #outlined-full-width-helper-text{
     height: 1px;
+}
+
+@media only screen and (max-width: 600px){
+	.start-container{
+        font-size:1em;
+	  }
+}
+
+.start-logo{
+    max-width: 100%;
+    height: auto;
+    color:#B2E0EE;
+    font-size:1.9em;
+    font-family: 'Fredoka One', cursive;
+  }
+
+@media only screen and (max-width: 600px){
+    .start-logo{font-size: 42px;}
+    #outlined-button{
+        width: 120px;
+    }
+    #outlined-full-width{
+        width: 100px;
+        height: 10px;
+    }
 }

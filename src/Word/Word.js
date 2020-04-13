@@ -3,38 +3,61 @@ import "./Word.css";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Timer from "../Timer/Timer";
 
 class Word extends Component {
   constructor(props) {
     super(props);
     this.randomWordContent = props.randomWordContent;
     this.wordContent = props.wordContent;
-    this.state = { wordFromDb: "alpakka" };
+    this.state = { wordFromDb: "alpakka", startTimer: false };
   }
   handleFirstWord = () => {
     this.setState({
-      firstWordReceived: true
+      firstWordReceived: true,
     });
   };
 
+  handleHideWord = () => {
+    console.log("Word should be hidden!");
+    this.props.handleShowWordApp();
+  };
+
+  startTimer = () => {
+    console.log("Start timer called");
+    this.setState({ startTimer: true });
+    this.props.handleHiddenWordApp();
+  };
   render() {
     return (
       <div>
         <div className="add-margin">
-          {!this.props.gotWordFromDb ? (
+          {!this.props.showWord ? (
             <Button
               className="brk-btn first-word"
               disabled={this.props.noMoreWords}
               variant="primary"
               size="xxl"
-              onClick={this.props.getRandomWordFromDb}
+              onClick={(event) => {
+                this.props.getRandomWordFromDb();
+                this.startTimer();
+              }}
             >
               Click when your turn
             </Button>
           ) : (
             <Modal.Dialog>
               <Modal.Header>
-                <Modal.Title className="modal-title">Your word</Modal.Title>
+                <Modal.Title className="modal-title">
+                  <div className="your-word">Your word</div>
+                  <div className="timer">
+                    <Timer
+                      seconds={60}
+                      startTimer={this.state.startTimer}
+                      handleHideWord={this.handleHideWord}
+                    />
+                  </div>
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <p className="fade-in word-content">
@@ -72,7 +95,7 @@ class Word extends Component {
 
 Word.propTypes = {
   wordContent: PropTypes.string,
-  wordID: PropTypes.string
+  wordID: PropTypes.string,
 };
 
 export default Word;

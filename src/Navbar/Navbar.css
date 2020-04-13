@@ -5,7 +5,7 @@ h1.mh-logo{
   height: auto;
   color:#B2E0EE;
   --color:rgb(43, 41, 42) !important;
-  font-size:2.2em;
+  font-size:1.9em;
   font-family: 'Fredoka One', cursive;
   
 }
@@ -20,19 +20,31 @@ h1.mh-logo{
 	color:#B4E2EF !important;
 
 }
-.container {
+.nav-container {
 	width: 100%;
 	max-width: 100%;
 	padding: 20px;
 	margin: 0 auto;
-	
 }
+
+div.nav-container{
+	background-color: #232C2F;
+	width: 100%;
+	opacity: 0.9 !important;
+  }
 /*Flex-wrap breaks it into two lines on small screens*/
-.main-header .container {
-    display:-webkit-flex;
-	align-items: center;
-	justify-content: space-around;
-	flex-wrap: wrap;
+.main-header .nav-container {
+	display:-webkit-flex;
+    align-items: center;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    --background-color: #232C2F;
+    height: 100%;
+    width: 100%;
+    font-size:1.4em;
+    padding-top:20px;
+    flex-direction: row;
+    padding: 40px;
 
 }
 .main-nav ul {
@@ -46,3 +58,16 @@ h1.mh-logo{
 	display: inline-block;
 	padding: .5em 1.5em;
 }
+
+@media only screen and (max-width: 600px){
+	.main-nav a {
+		display: inline-block;
+		padding: .1em 0.2em;
+	}
+	h1.mh-logo{
+			font-size:1.3em;
+	  }
+}
+
+
+li{list-style-type:none}

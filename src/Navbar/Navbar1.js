@@ -8,10 +8,10 @@ class Navbar extends Component {
     return (
       <div>
         <header className="main-header">
-          <div className="nav-container">
+          <div className="container">
             <li>
               <NavLink exact to="/">
-                <h1 className="mh-logo">Chapi-chapeau</h1>
+                <h1 className="mh-logo">Chapi-chapau</h1>
               </NavLink>
               <h4>Your game pin: {this.props.globalGameId}</h4>
             </li>

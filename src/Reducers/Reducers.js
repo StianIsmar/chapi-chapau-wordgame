@@ -1,8 +1,8 @@
 import { SET_GAME_ID } from "../Actions/Actions";
 
 const initialState = {
-  globalGameId: 1,
-  globalGameKey: 1,
+  globalGameId: 0,
+  globalGameKey: 0,
 };
 function gameApp(state, action) {
   if (typeof state === "undefined") {

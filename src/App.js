@@ -39,6 +39,7 @@ class App extends Component {
       roundScore: 0,
       moreWordsExist: true,
       mounted: false,
+      showWord: false,
     };
   }
   // before component mounts
@@ -156,7 +157,7 @@ class App extends Component {
   startNewRound = () => {
     // empty completed words
     this.setState(
-      { words: [], gotWordFromDb: false, noMoreWords: false },
+      { words: [], gotWordFromDb: false, noMoreWords: false, showWord: false },
       () => {
         this.copyFbRecord(this.dbMain);
       }
@@ -184,11 +185,28 @@ class App extends Component {
         });
     });
   };
+  handleHiddenWordApp = () => {
+    this.setState({ showWord: true }, () => {
+      console.log(this.state.showWord);
+    });
+  };
+
+  handleShowWordApp = () => {
+    this.setState({ showWord: false });
+  };
 
   render() {
     return (
       <div>
-        {" "}
+        {this.props.globalGameKey === 0 ? (
+          <div>
+            {alert(
+              "Go back to the homepage and create or log back into the game."
+            )}
+          </div>
+        ) : (
+          <div></div>
+        )}
         <div className="App">
           <Navbar />
           <div className="add-word-and-status">
@@ -200,7 +218,10 @@ class App extends Component {
             </div>
 
             <div className="wordPool">
-              <Wordpool numOfWords={this.state.words.length}></Wordpool>
+              <Wordpool
+                numOfWords={this.state.words.length}
+                mounted={this.state.mounted}
+              ></Wordpool>
             </div>
             <WordForm className="wordform" addword={this.addword} />
           </div>
@@ -213,6 +234,9 @@ class App extends Component {
               roundScore={this.state.roundScore}
               completedWord={this.completedWord}
               noMoreWords={!this.state.moreWordsExist}
+              handleHiddenWordApp={this.handleHiddenWordApp}
+              showWord={this.state.showWord}
+              handleShowWordApp={this.handleShowWordApp}
             />
           </div>
           <div className="alert-container">
