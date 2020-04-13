@@ -11,7 +11,7 @@ class Navbar extends Component {
           <div className="nav-container">
             <li>
               <NavLink exact to="/">
-                <h1 className="mh-logo">Chapi-chapau</h1>
+                <h1 className="mh-logo">Chapi-chapeau</h1>
               </NavLink>
               <h4>Your game pin: {this.props.globalGameId}</h4>
             </li>

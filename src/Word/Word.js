@@ -10,7 +10,7 @@ class Word extends Component {
     super(props);
     this.randomWordContent = props.randomWordContent;
     this.wordContent = props.wordContent;
-    this.state = { wordFromDb: "alpakka", showWord: false, startTimer: false };
+    this.state = { wordFromDb: "alpakka", startTimer: false };
   }
   handleFirstWord = () => {
     this.setState({
@@ -20,18 +20,19 @@ class Word extends Component {
 
   handleHideWord = () => {
     console.log("Word should be hidden!");
-    this.setState({ showWord: false });
+    this.props.handleShowWordApp();
   };
 
   startTimer = () => {
     console.log("Start timer called");
-    this.setState({ startTimer: true, showWord: true });
+    this.setState({ startTimer: true });
+    this.props.handleHiddenWordApp();
   };
   render() {
     return (
       <div>
         <div className="add-margin">
-          {!this.state.showWord ? (
+          {!this.props.showWord ? (
             <Button
               className="brk-btn first-word"
               disabled={this.props.noMoreWords}

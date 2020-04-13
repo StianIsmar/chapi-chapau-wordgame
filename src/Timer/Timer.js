@@ -6,7 +6,7 @@ class Timer extends React.Component {
     this.state = {
       seconds: this.props.seconds,
       timerOn: false,
-      timerTime: 10,
+      timerTime: 60,
       timerStart: 0,
     };
   }
@@ -14,7 +14,7 @@ class Timer extends React.Component {
   startCountDown = () => {
     this.setState({
       timerOn: true,
-      timerTime: 10,
+      timerTime: 60,
       timerStart: this.state.timerTime,
     });
     // start timer after button is clicked

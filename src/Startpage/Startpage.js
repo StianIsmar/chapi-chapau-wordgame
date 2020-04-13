@@ -45,7 +45,7 @@ class Startpage extends Component {
     // Function fired when new game button is pressed!
     let a = await this.checkIfEmptyDb();
     if (a === false) {
-      this.sendNew(0, this.handleState); // setting the new game id to 0.
+      this.sendNew(1, this.handleState); // setting the new game id to 0.
     }
     if (a === true) {
       console.log("The db exists!");
@@ -150,7 +150,7 @@ class Startpage extends Component {
         <div>
           <header className="main-header">
             <div className="start-container">
-              <h1 className="start-logo">Chapi-chapau</h1>
+              <h1 className="start-logo">Chapi-chapeau</h1>
               <nav className="main-nav">
                 <ul className="main-nav-list"></ul>
               </nav>
